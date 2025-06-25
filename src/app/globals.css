@@ -7,3 +7,6 @@
   --color-linearTwo: #293775;
   --color-linearThree: #3f2888;
 }
+body {
+  background-color: white;
+}

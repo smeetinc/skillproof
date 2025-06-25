@@ -53,7 +53,7 @@ export default function SkillProofFeatures() {
         {features.map((feature) => (
           <div
             key={feature.title}
-            className="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-sm border border-gray-200 hover:shadow-md transition"
+            className="bg-white  rounded-xl p-6 shadow-sm border border-gray-200 hover:shadow-md transition"
           >
             {/* Icon with gradient border */}
             <div className="w-fit h-fit ">

@@ -46,7 +46,7 @@ export const HowItWorksSection = () => {
         {/* Steps Grid */}
         <div className="grid grid-cols-11 gap-4">
           <div className="relative p-[2px] rounded-xl bg-gradient-to-b from-black to-[#2A56C6] col-span-3">
-            <div className="rounded-xl bg-white dark:bg-gray-900 p-6 h-full">
+            <div className="rounded-xl bg-white  p-6 h-full">
               {/* Icon */}
               <div className="w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-6">
                 <Image
@@ -78,7 +78,7 @@ export const HowItWorksSection = () => {
             <LuArrowBigRight className="text-linearTwo font-bold h-8 w-12" />
           </div>
           <div className="relative p-[2px] rounded-xl bg-gradient-to-b from-black to-[#2A56C6] col-span-3">
-            <div className="rounded-xl bg-white dark:bg-gray-900 p-6 h-full">
+            <div className="rounded-xl bg-white  p-6 h-full">
               {/* Icon */}
               <div className="w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-6">
                 <Image
@@ -109,7 +109,7 @@ export const HowItWorksSection = () => {
           </div>
 
           <div className="relative p-[2px] rounded-xl bg-gradient-to-b from-black to-[#2A56C6] col-span-3">
-            <div className="rounded-xl bg-white dark:bg-gray-900 p-6 h-full">
+            <div className="rounded-xl bg-white  p-6 h-full">
               {/* Icon */}
               <div className="w-16 h-16  rounded-xl flex items-center justify-center mx-auto mb-6">
                 <Image
