@@ -17,7 +17,7 @@ export default function Header() {
           {/* Logo */}
           <div className="flex items-center space-x-2">
             <Image
-              src="/logo.png"
+              src="/logo.svg"
               alt="skillproof logo"
               width={40}
               height={35}
