@@ -29,25 +29,25 @@ export default function Header() {
           {/* Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             <a
-              href="#how-it-works"
+              href="/#how-it-works"
               className="text-gray-600 hover:text-gray-900 transition-colors"
             >
               How It Works
             </a>
             <a
-              href="#my-nfts"
+              href="/#my-nfts"
               className="text-gray-600 hover:text-gray-900 transition-colors"
             >
               My NFTs
             </a>
             <a
-              href="#verify-work"
+              href="/#verify-work"
               className="text-gray-600 hover:text-gray-900 transition-colors"
             >
               Verify Work
             </a>
             <a
-              href="#features"
+              href="/#features"
               className="text-gray-600 hover:text-gray-900 transition-colors"
             >
               Features
