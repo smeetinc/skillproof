@@ -1,6 +1,5 @@
 // app/api/w3up-delegation/[did]/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import * as Client from "@storacha/client";
 
 // You'll need to set this up as an environment variable
 const STORACHA_EMAIL = process.env.STORACHA_EMAIL;
@@ -18,6 +17,9 @@ async function initializeServerClient() {
   }
 
   try {
+    // Dynamically import the client to avoid build-time issues
+    const Client = await import("@storacha/client");
+
     // Create server client
     serverClient = await Client.create();
     console.log("Server client created with DID:", serverClient.agent.did());
