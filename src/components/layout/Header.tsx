@@ -153,11 +153,11 @@ export default function Header() {
 	const { disconnect } = useDisconnect();
 
 	// Redirect to verification page after successful connection
-	useEffect(() => {
-		if (isConnected && address) {
-			router.push("/request_verification");
-		}
-	}, [isConnected, address, router]);
+	// useEffect(() => {
+	// 	if (isConnected && address) {
+	// 		router.push("/request_verification");
+	// 	}
+	// }, [isConnected, address, router]);
 
 	const handleConnectWallet = (connector: any) => {
 		connect({ connector });
@@ -202,7 +202,7 @@ export default function Header() {
 							My NFTs
 						</a>
 						<a
-							href='/#verify-work'
+							href='/request_verification'
 							className='text-gray-600 hover:text-gray-900 transition-colors'>
 							Verify Work
 						</a>

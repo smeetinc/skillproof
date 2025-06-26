@@ -5,7 +5,7 @@ import { Upload, X, Plus, Calendar, Link2, Loader2 } from "lucide-react";
 import { useRef } from "react";
 import { useAccount } from "wagmi";
 import { useDocumentUpload } from "@/hooks/write/uploadToIpfs";
-import { toast } from 'react-hot-toast';
+import { toast } from "react-hot-toast";
 
 interface FormData {
 	projectName: string;
@@ -26,8 +26,9 @@ interface UploadedFile {
 
 export default function RequestWorkVerification() {
 	const { address, isConnected } = useAccount();
-	const { uploadToIpfs, storeVerificationRequest, isUploading, IsStored } = useDocumentUpload();
-	
+	const { uploadToIpfs, storeVerificationRequest, isUploading, IsStored } =
+		useDocumentUpload();
+
 	const [showSuccessPopup, setShowSuccessPopup] = useState<boolean>(false);
 	const [verificationId, setVerificationId] = useState<string | null>(null);
 	const [formData, setFormData] = useState<FormData>({
@@ -133,23 +134,23 @@ export default function RequestWorkVerification() {
 
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault();
-		
+
 		// Basic form validation
 		if (!formData.projectName.trim()) {
 			toast.error("Project name is required");
 			return;
 		}
-		
+
 		if (!formData.projectDescription.trim()) {
 			toast.error("Project description is required");
 			return;
 		}
-		
+
 		if (!formData.completionDate) {
 			toast.error("Completion date is required");
 			return;
 		}
-		
+
 		if (!formData.projectValue) {
 			toast.error("Project value is required");
 			return;
@@ -167,15 +168,15 @@ export default function RequestWorkVerification() {
 
 			// Upload files to IPFS if any files are selected
 			if (uploadedFiles.length > 0) {
-				const filesToUpload = uploadedFiles.map(file => file.file);
+				const filesToUpload = uploadedFiles.map((file) => file.file);
 				const uploadResult = await uploadToIpfs(filesToUpload);
-				
+
 				if (!uploadResult) {
 					toast.error("Failed to upload files to IPFS");
 					setIsSubmitting(false);
 					return;
 				}
-				
+
 				uploadedFileMeta = uploadResult;
 			}
 
@@ -193,7 +194,7 @@ export default function RequestWorkVerification() {
 
 			// Store verification request in database
 			const storeResult = await storeVerificationRequest(verificationData);
-			
+
 			if (storeResult && storeResult !== false) {
 				setFormData({
 					projectName: "",
@@ -205,15 +206,13 @@ export default function RequestWorkVerification() {
 				});
 				setSelectedSkills([]);
 				setUploadedFiles([]);
-				
+
 				// Set verification ID and show popup
 				setVerificationId(storeResult);
 				setShowSuccessPopup(true);
-			
 			} else {
 				toast.error("Failed to submit verification request");
-				}
-
+			}
 		} catch (error) {
 			console.error("Submission error:", error);
 			toast.error("An unexpected error occurred during submission");
@@ -485,14 +484,13 @@ export default function RequestWorkVerification() {
 										: "bg-gray-300 text-gray-500 cursor-not-allowed"
 								}`}>
 								{(isSubmitting || isUploading) && (
-									<Loader2 className="w-4 h-4 animate-spin" />
+									<Loader2 className='w-4 h-4 animate-spin' />
 								)}
-								{isUploading 
-									? "Uploading to IPFS..." 
-									: isSubmitting 
-									? "Submitting..." 
-									: "Submit for Verification"
-								}
+								{isUploading
+									? "Uploading to IPFS..."
+									: isSubmitting
+									? "Submitting..."
+									: "Submit for Verification"}
 							</button>
 							{!isConnected && (
 								<p className='text-xs text-gray-500 mt-2'>
@@ -501,7 +499,8 @@ export default function RequestWorkVerification() {
 							)}
 							{uploadedFiles.length > 0 && (
 								<p className='text-xs text-blue-600 mt-2'>
-									{uploadedFiles.length} file(s) will be uploaded to IPFS during submission
+									{uploadedFiles.length} file(s) will be uploaded to IPFS during
+									submission
 								</p>
 							)}
 						</div>
@@ -509,49 +508,61 @@ export default function RequestWorkVerification() {
 				</div>
 				{/* Success Popup */}
 				{showSuccessPopup && verificationId && (
-				<div className="fixed inset-0 bg-black bg-opacity-10 flex items-center justify-center z-50">
-					<div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
-					<div className="text-center">
-						<div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-						<svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-						</svg>
-						</div>
-						<h3 className="text-lg font-semibold text-gray-900 mb-2">
-						Verification Submitted Successfully!
-						</h3>
-						<p className="text-gray-600 mb-4">
-						Your work verification request has been submitted. Share this link with your client for verification.
-						</p>
-						<div className="bg-gray-50 p-3 rounded-md mb-4">
-						<p className="text-sm text-gray-600 mb-2">Verification URL:</p>
-						<p className="text-sm font-mono bg-white p-2 rounded border break-all">
-							{`${window.location.origin}/verify/${verificationId}`}
-						</p>
-						</div>
-						<div className="flex gap-3">
-						<button
-							onClick={() => {
-							navigator.clipboard.writeText(`${window.location.origin}/verify/${verificationId}`);
-							toast.success("URL copied to clipboard!");
-							}}
-							className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
-						>
-							Copy URL
-						</button>
-						<button
-							onClick={() => {
-							setShowSuccessPopup(false);
-							setVerificationId(null);
-							}}
-							className="flex-1 bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition-colors"
-						>
-							Close
-						</button>
+					<div className='fixed inset-0 bg-black/50 backdrop-blur-lg flex items-center justify-center z-50'>
+						<div className='bg-white rounded-lg p-6 max-w-md w-full mx-4'>
+							<div className='text-center'>
+								<div className='w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4'>
+									<svg
+										className='w-8 h-8 text-green-600'
+										fill='none'
+										stroke='currentColor'
+										viewBox='0 0 24 24'>
+										<path
+											strokeLinecap='round'
+											strokeLinejoin='round'
+											strokeWidth={2}
+											d='M5 13l4 4L19 7'
+										/>
+									</svg>
+								</div>
+								<h3 className='text-lg font-semibold text-gray-900 mb-2'>
+									Verification Submitted Successfully!
+								</h3>
+								<p className='text-gray-600 mb-4'>
+									Your work verification request has been submitted. Share this
+									link with your client for verification.
+								</p>
+								<div className='bg-gray-50 p-3 rounded-md mb-4'>
+									<p className='text-sm text-gray-600 mb-2'>
+										Verification URL:
+									</p>
+									<p className='text-sm font-mono bg-white p-2 rounded border break-all'>
+										{`${window.location.origin}/verify/${verificationId}`}
+									</p>
+								</div>
+								<div className='flex gap-3'>
+									<button
+										onClick={() => {
+											navigator.clipboard.writeText(
+												`${window.location.origin}/verify/${verificationId}`
+											);
+											toast.success("URL copied to clipboard!");
+										}}
+										className='flex-1 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors'>
+										Copy URL
+									</button>
+									<button
+										onClick={() => {
+											setShowSuccessPopup(false);
+											setVerificationId(null);
+										}}
+										className='flex-1 bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition-colors'>
+										Close
+									</button>
+								</div>
+							</div>
 						</div>
 					</div>
-					</div>
-				</div>
 				)}
 			</div>
 		</div>
