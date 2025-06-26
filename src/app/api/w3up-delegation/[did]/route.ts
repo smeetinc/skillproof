@@ -5,16 +5,16 @@ import * as Client from "@storacha/client";
 // You'll need to set this up as an environment variable
 const STORACHA_EMAIL = process.env.STORACHA_EMAIL;
 
-if (!STORACHA_EMAIL) {
-  throw new Error("STORACHA_EMAIL environment variable is required");
-}
-
 // Store the server client globally (in production, use a proper database)
 let serverClient: any = null;
 
 async function initializeServerClient() {
   if (serverClient) {
     return serverClient;
+  }
+
+  if (!STORACHA_EMAIL) {
+    throw new Error("STORACHA_EMAIL environment variable is required");
   }
 
   try {
