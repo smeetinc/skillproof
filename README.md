@@ -83,7 +83,7 @@ SkillProof transforms anonymous portfolios and unverifiable screenshots into **o
 - 🧱 Solidity (ERC-721)
 - 🧑‍🎨 NextJS + Tailwind
 - 🧩 Wagmi + RainbowKit
-- 🗂 IPFS via Web3.Storage
+- 🗂 IPFS via Pinata
 
 ---
 
