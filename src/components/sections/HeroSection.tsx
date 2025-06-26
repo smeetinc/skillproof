@@ -38,8 +38,11 @@ export const HeroSection = () => {
 							<span>Start Building Proof</span>
 							<ArrowRight className='w-5 h-5' />
 						</button>
-						<Link href={"https://youtu.be/QLSysfGhfEQ"} target='_blank'>
-							<button className='border border-white/30 hover:bg-white/10 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors'>
+						<Link
+							href={"https://youtu.be/QLSysfGhfEQ"}
+							className='cursor-pointer'
+							target='_blank'>
+							<button className='border cursor-pointer border-white/30 hover:bg-white/10 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors'>
 								View Demo
 							</button>
 						</Link>
