@@ -1,4 +1,4 @@
-// app/api/w3up-delegation/[did]/route.ts
+/* // app/api/w3up-delegation/[did]/route.ts
 import { NextRequest, NextResponse } from "next/server";
 
 // You'll need to set this up as an environment variable
@@ -138,3 +138,4 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+ */
