@@ -1,9 +1,11 @@
 "use client";
 
 import { useState, ChangeEvent, FormEvent, DragEvent, useEffect } from "react";
-import { Upload, X, Plus, Calendar, Link2 } from "lucide-react";
+import { Upload, X, Plus, Calendar, Link2, Loader2 } from "lucide-react";
 import { useRef } from "react";
 import { useAccount } from "wagmi";
+import { useDocumentUpload } from "@/hooks/write/uploadToIpfs";
+import { toast } from 'react-hot-toast';
 
 interface FormData {
 	projectName: string;
@@ -24,7 +26,10 @@ interface UploadedFile {
 
 export default function RequestWorkVerification() {
 	const { address, isConnected } = useAccount();
-
+	const { uploadToIpfs, storeVerificationRequest, isUploading, IsStored } = useDocumentUpload();
+	
+	const [showSuccessPopup, setShowSuccessPopup] = useState<boolean>(false);
+	const [verificationId, setVerificationId] = useState<string | null>(null);
 	const [formData, setFormData] = useState<FormData>({
 		projectName: "",
 		walletAddress: "",
@@ -41,6 +46,7 @@ export default function RequestWorkVerification() {
 	]);
 	const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
 	const [dragOver, setDragOver] = useState<boolean>(false);
+	const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
 	// Update wallet address when connected wallet changes
 	useEffect(() => {
@@ -125,14 +131,95 @@ export default function RequestWorkVerification() {
 		return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
 	};
 
-	const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
+	const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault();
-		console.log("Form submitted:", {
-			...formData,
-			skills: selectedSkills,
-			files: uploadedFiles,
-		});
-		// Handle form submission logic here
+		
+		// Basic form validation
+		if (!formData.projectName.trim()) {
+			toast.error("Project name is required");
+			return;
+		}
+		
+		if (!formData.projectDescription.trim()) {
+			toast.error("Project description is required");
+			return;
+		}
+		
+		if (!formData.completionDate) {
+			toast.error("Completion date is required");
+			return;
+		}
+		
+		if (!formData.projectValue) {
+			toast.error("Project value is required");
+			return;
+		}
+
+		if (!isConnected) {
+			toast.error("Please connect your wallet to submit");
+			return;
+		}
+
+		setIsSubmitting(true);
+
+		try {
+			let uploadedFileMeta: any[] = [];
+
+			// Upload files to IPFS if any files are selected
+			if (uploadedFiles.length > 0) {
+				const filesToUpload = uploadedFiles.map(file => file.file);
+				const uploadResult = await uploadToIpfs(filesToUpload);
+				
+				if (!uploadResult) {
+					toast.error("Failed to upload files to IPFS");
+					setIsSubmitting(false);
+					return;
+				}
+				
+				uploadedFileMeta = uploadResult;
+			}
+
+			// Prepare data for storage
+			const verificationData = {
+				projectName: formData.projectName,
+				walletAddress: formData.walletAddress,
+				projectDescription: formData.projectDescription,
+				completionDate: formData.completionDate,
+				projectValue: formData.projectValue,
+				projectLink: formData.projectLink,
+				skills: selectedSkills,
+				files: uploadedFileMeta,
+			};
+
+			// Store verification request in database
+			const storeResult = await storeVerificationRequest(verificationData);
+			
+			if (storeResult && storeResult !== false) {
+				setFormData({
+					projectName: "",
+					walletAddress: address || "",
+					projectDescription: "",
+					completionDate: "",
+					projectValue: "",
+					projectLink: "",
+				});
+				setSelectedSkills([]);
+				setUploadedFiles([]);
+				
+				// Set verification ID and show popup
+				setVerificationId(storeResult);
+				setShowSuccessPopup(true);
+			
+			} else {
+				toast.error("Failed to submit verification request");
+				}
+
+		} catch (error) {
+			console.error("Submission error:", error);
+			toast.error("An unexpected error occurred during submission");
+		} finally {
+			setIsSubmitting(false);
+		}
 	};
 
 	return (
@@ -149,7 +236,7 @@ export default function RequestWorkVerification() {
 							{/* Project Name */}
 							<div className='w-2/5'>
 								<label className='block text-sm font-medium text-gray-700 mb-2'>
-									Project Name
+									Project Name *
 								</label>
 								<input
 									type='text'
@@ -157,6 +244,7 @@ export default function RequestWorkVerification() {
 									value={formData.projectName}
 									onChange={handleInputChange}
 									placeholder='E-commerce website'
+									required
 									className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent'
 								/>
 							</div>
@@ -197,7 +285,7 @@ export default function RequestWorkVerification() {
 						{/* Project Description */}
 						<div>
 							<label className='block text-sm font-medium text-gray-700 mb-2'>
-								Project Description
+								Project Description *
 							</label>
 							<textarea
 								name='projectDescription'
@@ -205,6 +293,7 @@ export default function RequestWorkVerification() {
 								onChange={handleInputChange}
 								placeholder='Describe the work completed...'
 								rows={4}
+								required
 								className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none'
 							/>
 						</div>
@@ -213,7 +302,7 @@ export default function RequestWorkVerification() {
 						<div className='grid grid-cols-2 gap-4'>
 							<div>
 								<label className='block text-sm font-medium text-gray-700 mb-2'>
-									Completion Date
+									Completion Date *
 								</label>
 								<div className='relative'>
 									<input
@@ -221,6 +310,7 @@ export default function RequestWorkVerification() {
 										name='completionDate'
 										value={formData.completionDate}
 										onChange={handleInputChange}
+										required
 										className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent'
 									/>
 									<Calendar className='absolute right-3 top-2.5 w-4 h-4 text-gray-400 pointer-events-none' />
@@ -228,7 +318,7 @@ export default function RequestWorkVerification() {
 							</div>
 							<div>
 								<label className='block text-sm font-medium text-gray-700 mb-2'>
-									Project Value (ETH)
+									Project Value (ETH) *
 								</label>
 								<input
 									type='number'
@@ -237,6 +327,8 @@ export default function RequestWorkVerification() {
 									onChange={handleInputChange}
 									placeholder='0.0'
 									step='0.01'
+									min='0'
+									required
 									className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent'
 								/>
 							</div>
@@ -349,7 +441,7 @@ export default function RequestWorkVerification() {
 						{uploadedFiles.length > 0 && (
 							<div>
 								<label className='block text-sm font-medium text-gray-700 mb-2'>
-									Uploaded Files
+									Uploaded Files ({uploadedFiles.length})
 								</label>
 								<div className='space-y-2'>
 									{uploadedFiles.map((file) => (
@@ -372,7 +464,8 @@ export default function RequestWorkVerification() {
 											<button
 												type='button'
 												onClick={() => removeFile(file.id)}
-												className='text-gray-400 hover:text-red-500'>
+												className='text-gray-400 hover:text-red-500'
+												disabled={isSubmitting}>
 												<X className='w-4 h-4' />
 											</button>
 										</div>
@@ -385,22 +478,81 @@ export default function RequestWorkVerification() {
 						<div className='w-full text-right'>
 							<button
 								type='submit'
-								disabled={!isConnected}
-								className={`py-3 px-4 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors ${
-									isConnected
+								disabled={!isConnected || isSubmitting || isUploading}
+								className={`py-3 px-6 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors flex items-center gap-2 ml-auto ${
+									isConnected && !isSubmitting && !isUploading
 										? "bg-blue-600 text-white hover:bg-blue-700"
 										: "bg-gray-300 text-gray-500 cursor-not-allowed"
 								}`}>
-								Submit for Verification
+								{(isSubmitting || isUploading) && (
+									<Loader2 className="w-4 h-4 animate-spin" />
+								)}
+								{isUploading 
+									? "Uploading to IPFS..." 
+									: isSubmitting 
+									? "Submitting..." 
+									: "Submit for Verification"
+								}
 							</button>
 							{!isConnected && (
 								<p className='text-xs text-gray-500 mt-2'>
 									Please connect your wallet to submit
 								</p>
 							)}
+							{uploadedFiles.length > 0 && (
+								<p className='text-xs text-blue-600 mt-2'>
+									{uploadedFiles.length} file(s) will be uploaded to IPFS during submission
+								</p>
+							)}
 						</div>
 					</form>
 				</div>
+				{/* Success Popup */}
+				{showSuccessPopup && verificationId && (
+				<div className="fixed inset-0 bg-black bg-opacity-10 flex items-center justify-center z-50">
+					<div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+					<div className="text-center">
+						<div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+						<svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+						</svg>
+						</div>
+						<h3 className="text-lg font-semibold text-gray-900 mb-2">
+						Verification Submitted Successfully!
+						</h3>
+						<p className="text-gray-600 mb-4">
+						Your work verification request has been submitted. Share this link with your client for verification.
+						</p>
+						<div className="bg-gray-50 p-3 rounded-md mb-4">
+						<p className="text-sm text-gray-600 mb-2">Verification URL:</p>
+						<p className="text-sm font-mono bg-white p-2 rounded border break-all">
+							{`${window.location.origin}/verify/${verificationId}`}
+						</p>
+						</div>
+						<div className="flex gap-3">
+						<button
+							onClick={() => {
+							navigator.clipboard.writeText(`${window.location.origin}/verify/${verificationId}`);
+							toast.success("URL copied to clipboard!");
+							}}
+							className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
+						>
+							Copy URL
+						</button>
+						<button
+							onClick={() => {
+							setShowSuccessPopup(false);
+							setVerificationId(null);
+							}}
+							className="flex-1 bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition-colors"
+						>
+							Close
+						</button>
+						</div>
+					</div>
+					</div>
+				</div>
+				)}
 			</div>
 		</div>
 	);
