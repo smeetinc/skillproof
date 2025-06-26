@@ -51,10 +51,11 @@ async function initializeServerClient() {
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { did: string } }
+  { params }: { params: Promise<{ did: string }> }
 ) {
   try {
-    const clientDid = params.did; // Fixed: use params.did instead of destructured did
+    const resolvedParams = await params;
+    const clientDid = resolvedParams.did;
 
     if (!clientDid) {
       return NextResponse.json(
