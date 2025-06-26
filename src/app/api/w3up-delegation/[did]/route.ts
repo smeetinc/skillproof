@@ -51,10 +51,10 @@ async function initializeServerClient() {
 
 export async function GET(
   request: NextRequest,
-  context: { params: { did: string } }
+  { params }: { params: { did: string } }
 ) {
   try {
-    const clientDid = context.params.did;
+    const clientDid = params.did; // Fixed: use params.did instead of destructured did
 
     if (!clientDid) {
       return NextResponse.json(
@@ -113,6 +113,8 @@ export async function GET(
 // Health check endpoint
 export async function POST(request: NextRequest) {
   try {
+    // This endpoint can be used to initialize the server client
+    // or check if everything is set up correctly
     const client = await initializeServerClient();
     const space = client.currentSpace();
 
