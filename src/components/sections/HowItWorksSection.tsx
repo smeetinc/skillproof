@@ -31,7 +31,7 @@ export const HowItWorksSection = () => {
 
   return (
     <section className="py-20 bg-gray-50" id="how-it-works">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-4/5 mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
@@ -45,7 +45,7 @@ export const HowItWorksSection = () => {
 
         {/* Steps Grid */}
         <div className="grid grid-cols-11 gap-4">
-          <div className="relative p-[2px] rounded-xl bg-gradient-to-b from-black to-[#2A56C6] col-span-3">
+          <div className="relative p-[2px] rounded-xl bg-gradient-to-b from-black to-[#2A56C6] col-span-3 hover:from-[#2A56C6] hover:to-black transition-all duration-300">
             <div className="rounded-xl bg-white  p-6 h-full">
               {/* Icon */}
               <div className="w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-6">

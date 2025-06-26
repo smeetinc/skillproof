@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 export const HeroSection = () => {
   return (
@@ -33,11 +34,14 @@ export const HeroSection = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg flex items-center space-x-2 text-lg font-semibold transition-colors">
-              <span>Start Building Proof</span>
-              <ArrowRight className="w-5 h-5" />
-            </button>
-            <button className="border border-white/30 hover:bg-white/10 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors">
+            <Link href="/request_verification">
+              <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg flex items-center space-x-2 text-lg font-semibold transition-colors cursor-pointer">
+                <span>Start Building Proof</span>
+                <ArrowRight className="w-5 h-5" />
+              </button>
+            </Link>
+
+            <button className="border border-white/30 hover:bg-white/10 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors cursor-pointer">
               View Demo
             </button>
           </div>
