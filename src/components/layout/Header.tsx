@@ -152,13 +152,6 @@ export default function Header() {
   const { connect, connectors, isPending } = useConnect();
   const { disconnect } = useDisconnect();
 
-  // Redirect to verification page after successful connection
-  useEffect(() => {
-    if (isConnected && address) {
-      router.push("/request_verification");
-    }
-  }, [isConnected, address, router]);
-
   const handleConnectWallet = (connector: any) => {
     connect({ connector });
     setShowWalletOptions(false);
