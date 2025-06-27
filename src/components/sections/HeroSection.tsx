@@ -1,7 +1,20 @@
 import { ArrowRight } from "lucide-react";
+import toast from "react-hot-toast";
+import { useAccount, useConnect, useDisconnect } from "wagmi";
+import { useRouter } from "next/navigation";
+
 import Link from "next/link";
 
 export const HeroSection = () => {
+  const { address, isConnected } = useAccount();
+  const router = useRouter();
+  const handleFreelance = () => {
+    if (!isConnected) {
+      toast.error("Please connect wallet to proceed");
+    } else {
+      router.push("/request_verification");
+    }
+  };
   return (
     <section
       className="pt-16 text-white"
@@ -34,16 +47,22 @@ export const HeroSection = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link href="/request_verification">
-              <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg flex items-center space-x-2 text-lg font-semibold transition-colors cursor-pointer">
-                <span>Start Building Proof</span>
-                <ArrowRight className="w-5 h-5" />
+            <button
+              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg flex items-center space-x-2 text-lg font-semibold transition-colors cursor-pointer"
+              onClick={handleFreelance}
+            >
+              <span>Start Building Proof</span>
+              <ArrowRight className="w-5 h-5" />
+            </button>
+            <Link
+              href={"https://youtu.be/QLSysfGhfEQ"}
+              className="cursor-pointer"
+              target="_blank"
+            >
+              <button className="border cursor-pointer border-white/30 hover:bg-white/10 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors">
+                View Demo
               </button>
             </Link>
-
-            <button className="border border-white/30 hover:bg-white/10 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors cursor-pointer">
-              View Demo
-            </button>
           </div>
         </div>
       </div>

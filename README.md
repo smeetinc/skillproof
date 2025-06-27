@@ -1,8 +1,8 @@
-# 🔶 SkillProof – *Create it. Verify it. Mint it.*
+# 🔶 SkillProof – _Create it. Verify it. Mint it._
 
 ## 🧵 Story-Driven Introduction
 
-Have you ever finished a project that *actually slapped* — visuals clean, copy tight, code flawless — but still had to beg a client for a testimonial?  
+Have you ever finished a project that _actually slapped_ — visuals clean, copy tight, code flawless — but still had to beg a client for a testimonial?  
 Or worse... the client vanishes like it’s the final season of a bad show.
 
 I’m not talking about Upwork or Fiverr.  
@@ -26,8 +26,8 @@ No resumes. No reviews. Just pure, signed work history — transparent, tamper-p
 In today’s Web3 world, most freelance contributors operate in DMs, Twitter replies, or DAO Discords.  
 After the job is done, there’s no standardized way to verify that work happened — or that it was even delivered well.
 
-- Freelancers get ghosted.  
-- Clients feel pressured to endorse subpar work.  
+- Freelancers get ghosted.
+- Clients feel pressured to endorse subpar work.
 - Recruiters can’t tell signal from noise.
 
 ---
@@ -44,9 +44,9 @@ What if **“proof-of-work” wasn’t just for miners — but for humans**?
 
 1. Freelancer completes a project (e.g., website, pitch deck, smart contract)
 2. They submit a SkillProof form with:
-   - Project details  
-   - Completion date  
-   - Relevant links/files (stored on IPFS)  
+   - Project details
+   - Completion date
+   - Relevant links/files (stored on IPFS)
    - Client’s wallet address
 3. Client reviews & signs
 4. NFT is minted with the client’s signature and metadata
@@ -64,15 +64,15 @@ SkillProof transforms anonymous portfolios and unverifiable screenshots into **o
 
 ## 👥 Who It’s For
 
-- 👩🏽‍💻 Freelancers tired of fake reviews & ghosting  
-- 🧑🏽‍💼 Clients who want to verify, not guess  
+- 👩🏽‍💻 Freelancers tired of fake reviews & ghosting
+- 🧑🏽‍💼 Clients who want to verify, not guess
 - 🏛 DAOs & Recruiters looking for wallet-signed work history
 
 ---
 
 ## 🔗 Track Relevance
 
-- 🆔 **On-Chain Identity** — Adds client-verified records to freelance profiles  
+- 🆔 **On-Chain Identity** — Adds client-verified records to freelance profiles
 - 🃏 **Wild Card** — Rethinks how we track & prove digital labor in crypto world
 
 ---
@@ -83,17 +83,17 @@ SkillProof transforms anonymous portfolios and unverifiable screenshots into **o
 - 🧱 Solidity (ERC-721)
 - 🧑‍🎨 NextJS + Tailwind
 - 🧩 Wagmi + RainbowKit
-- 🗂 IPFS via Web3.Storage
+- 🗂 IPFS via Pinata
 
 ---
 
 ## 🧪 MVP Goals
 
-- ✅ Wallet login  
-- ✅ Project submission & metadata  
-- ✅ Client signature for minting  
-- ✅ On-chain Skill NFT with status  
-- ⏳ Public gallery *(post-MVP)*
+- ✅ Wallet login
+- ✅ Project submission & metadata
+- ✅ Client signature for minting
+- ✅ On-chain Skill NFT with status
+- ⏳ Public gallery _(post-MVP)_
 
 ---
 
@@ -101,18 +101,18 @@ SkillProof transforms anonymous portfolios and unverifiable screenshots into **o
 
 ### ✅ MVP (Now)
 
-- Submit project form with details & links  
-- Request client signature  
-- Mint Skill NFT after approval  
-- Status: Pending / Verified  
+- Submit project form with details & links
+- Request client signature
+- Mint Skill NFT after approval
+- Status: Pending / Verified
 - Shareable NFT link (X, LinkedIn, Copy, Download)
 
 ### 🔜 Post-MVP (Future)
 
-- 🖼 **Public Portfolio Gallery** — Display all signed and pending NFTs  
-- ❌ **Reject with Reason** — Let clients reject with short feedback  
-- 🔒 **Escrow / Asset Lock** — Delay full file access until signature  
-- 🧾 **Proof Hash System** — Upload only the hash before approval  
+- 🖼 **Public Portfolio Gallery** — Display all signed and pending NFTs
+- ❌ **Reject with Reason** — Let clients reject with short feedback
+- 🔒 **Escrow / Asset Lock** — Delay full file access until signature
+- 🧾 **Proof Hash System** — Upload only the hash before approval
 - 📊 **Reputation Dashboard** — Ratings & history for freelancers and clients
 
 ---
