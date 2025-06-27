@@ -308,11 +308,95 @@ export function useDocumentUpload() {
     [address, pinata.upload, pinataCloudGateway]
   )
   
+  // Function to get all approved work verifications
+  const getAllApprovedWork = useCallback(
+    async (walletAddress?: string): Promise<ProjectVerificationData[]> => {
+      setIsLoading(true);
+      
+      try {
+        let query = supabase
+          .from("work_verifications")
+          .select(`
+            id,
+            project_name,
+            wallet_address,
+            project_description,
+            completion_date,
+            project_value,
+            project_link,
+            skills,
+            files,
+            status,
+            created_at,
+            updated_at
+          `)
+          .order('updated_at', { ascending: false });
+
+        // If wallet address is provided, filter by it
+        if (walletAddress) {
+          query = query.eq('wallet_address', walletAddress);
+        }
+
+        const { data, error } = await query;
+
+        if (error) {
+          console.error("Supabase fetch error:", error);
+          toast.error(`Failed to fetch work verifications: ${error.message}`);
+          return [];
+        }
+
+        if (!data || data.length === 0) {
+          return [];
+        }
+
+        // Transform the data to match the expected interface
+        const transformedData: ProjectVerificationData[] = data.map((item) => ({
+          id: item.id,
+          projectName: item.project_name,
+          freelancerName: "Freelancer", // You might want to add this to your database
+          freelancerWallet: item.wallet_address,
+          completedDate: new Date(item.completion_date).toLocaleDateString('en-US', {
+            year: '2-digit',
+            month: 'short',
+            day: 'numeric'
+          }),
+          submittedDate: new Date(item.created_at).toLocaleDateString('en-US', {
+            year: '2-digit',
+            month: 'short',
+            day: 'numeric'
+          }),
+          status: item.status || "approved",
+          projectDescription: item.project_description,
+          technologies: item.skills || [],
+          submittedFiles: (item.files || []).map((file: any, index: number) => ({
+            id: `file-${index + 1}`,
+            name: file.name,
+            size: convertSizeToBytes(file.size),
+            type: file.type || "application/octet-stream",
+            downloadUrl: file.downloadLink
+          })),
+          projectValue: item.project_value,
+          projectLink: item.project_link
+        }));
+
+        return transformedData;
+      } catch (err) {
+        console.error("getAllApprovedWork error:", err);
+        toast.error("Unexpected error fetching work verifications");
+        return [];
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    []
+  );
+
   return {
     uploadToIpfs,
     storeVerificationRequest,
     getWorkVerification,
     updateVerificationStatus,
+    getAllApprovedWork,
     isUploading,
     IsStored,
     isLoading,

@@ -119,11 +119,6 @@ export default function ClientWorkVerification() {
         setVerificationData((prev) =>
           prev ? { ...prev, status: "approved" } : null
         );
-
-        // Navigate to success page after a short delay
-        setTimeout(() => {
-          router.push("/mint_success");
-        }, 1000);
       }
     } catch (error) {
       console.error("Error approving verification:", error);
@@ -154,10 +149,6 @@ export default function ClientWorkVerification() {
           prev ? { ...prev, status: "rejected" } : null
         );
 
-        // Optionally redirect or show success message
-        setTimeout(() => {
-          router.push("/verifications"); // Adjust route as needed
-        }, 1000);
       }
     } catch (error) {
       console.error("Error rejecting verification:", error);
