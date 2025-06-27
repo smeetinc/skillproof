@@ -1,13 +1,21 @@
+"use client";
 import Image from "next/image";
 import React from "react";
+import { useRouter } from "next/navigation";
 
 export default function Footer() {
+  const router = useRouter();
   return (
     <footer className="bg-[#0F172A] text-white py-12 mt-16">
       <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Logo & Tagline */}
         <div>
-          <div className="flex items-center gap-2">
+          <div
+            className="flex items-center gap-2 cursor-pointer"
+            onClick={() => {
+              router.push("/");
+            }}
+          >
             <Image
               src="/logo.svg"
               alt="SkillProof Logo"

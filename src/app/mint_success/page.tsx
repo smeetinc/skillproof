@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Check,
   Copy,
@@ -23,6 +23,21 @@ interface MintingDetails {
 
 export default function NFTMintedSuccessfully() {
   const [copiedField, setCopiedField] = useState<string | null>(null);
+  const [projectData, setProjectData] = useState<any[]>([]);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("verificationData");
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      setProjectData(parsed);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (projectData.length > 0) {
+      console.log("showing project data", projectData);
+    }
+  }, [projectData]);
 
   // Mock data - To be replaced
   const mintingData: MintingDetails = {
