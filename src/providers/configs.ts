@@ -9,7 +9,6 @@ export const config = createConfig(
         walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || "",
     
         appDescription: "Blockchain-based skill verification platform",
-        appUrl: "https://skillproof.com",
         appIcon: "https://skillproof.com/logo.svg",
       })
   );

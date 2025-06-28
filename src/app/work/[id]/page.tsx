@@ -104,6 +104,12 @@ export default function UserWorkVerification() {
       document.body.removeChild(link);
     }
   };
+  const formatSignature = (sig: string) => {
+    if (!sig.startsWith('0x')) {
+      return `0x${sig}`
+    }
+    return sig
+  }
   const handleMintNFT = async () => {
     if (!verificationData) return
 
@@ -112,15 +118,15 @@ export default function UserWorkVerification() {
 
     // This is where you would get the signature from your backend
     // For now using a placeholder
-    const signature = "0x..." // You'll need to implement signature generation
 
+
+    
     const success = await mintNFT(
       verificationData.freelancerWallet,
       verificationData.projectName,
       verificationData.projectDescription,
       completionDate,
       verificationData.submittedFiles[0]?.downloadUrl || '', // Using first file's IPFS URI as metadata
-      signature
     )
 
     if (success) {
