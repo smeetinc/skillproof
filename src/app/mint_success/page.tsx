@@ -26,10 +26,12 @@ export default function NFTMintedSuccessfully() {
   const [projectData, setProjectData] = useState<any[]>([]);
 
   useEffect(() => {
-    const stored = localStorage.getItem("verificationData");
-    if (stored) {
-      const parsed = JSON.parse(stored);
-      setProjectData(parsed);
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("verificationData");
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        setProjectData(parsed);
+      }
     }
   }, []);
 
@@ -39,16 +41,25 @@ export default function NFTMintedSuccessfully() {
     }
   }, [projectData]);
 
-  // Mock data - To be replaced
-  const mintingData: MintingDetails = {
-    tokenId: "#202",
-    walletAddress: "0x567d.........Fed4",
-    ipfsUri: "ipfs://QmYqaPJ6JxcZ...",
-    transactionHash: "0x567d.........Fed4",
-    mintedAt: "Jan 12, 2025",
-    network: "Ethereum",
-    projectName: "E-commerce site",
-  };
+  const get_local_minitingData =
+    typeof window !== "undefined" ? localStorage.getItem("mintingDetails") : null;
+  if (!get_local_minitingData) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">
+            No Minting Data Found
+          </h1>
+          <p className="text-gray-600">
+            It seems like you haven't minted any NFTs yet. Please mint an NFT
+            first to view the details.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  const mintingData: MintingDetails = JSON.parse(get_local_minitingData);
 
   const copyToClipboard = async (
     text: string,
@@ -113,7 +124,7 @@ export default function NFTMintedSuccessfully() {
         <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg p-6 text-white mb-6">
           <div className="flex justify-between items-start">
             <div>
-              <h2 className="text-xl font-semibold mb-2">E-commerce Website</h2>
+              <h2 className="text-xl font-semibold mb-2">{mintingData.projectName}</h2>
               <p className="text-blue-100">Token ID: {mintingData.tokenId}</p>
             </div>
             <div className="text-right">
@@ -193,10 +204,7 @@ export default function NFTMintedSuccessfully() {
                   <button
                     onClick={() =>
                       openInNewTab(
-                        `https://ipfs.io/ipfs/${mintingData.ipfsUri.replace(
-                          "ipfs://",
-                          ""
-                        )}`
+                        `${mintingData.ipfsUri}`
                       )
                     }
                     className="p-1 hover:bg-gray-200 rounded transition-colors"
