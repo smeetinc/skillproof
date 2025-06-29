@@ -97,6 +97,8 @@ SkillProof transforms anonymous portfolios and unverifiable screenshots into **o
 - ⏳ Public gallery _(post-MVP)_
 
 ---
+## Demo 
+
 
 ## 🛣️ Roadmap
 
@@ -110,11 +112,17 @@ SkillProof transforms anonymous portfolios and unverifiable screenshots into **o
 
 ### 🔜 Post-MVP (Future)
 
-- 🖼 **Public Portfolio Gallery** — Display all signed and pending NFTs
-- ❌ **Reject with Reason** — Let clients reject with short feedback
-- 🔒 **Escrow / Asset Lock** — Delay full file access until signature
-- 🧾 **Proof Hash System** — Upload only the hash before approval
-- 📊 **Reputation Dashboard** — Ratings & history for freelancers and clients
+- Public Portfolio Gallery: Display all signed and pending Skill NFTs — your work, transparently showcased.
+  
+- Reject with ReasonLet clients reject a submission, but leave a short reason for fairness and feedback loops.
+
+- Escrow/Asset LockDelay full access to files until the client signs. Protects freelancers from asset theft before approval.
+
+- Proof Hash SystemUpload a hash of the final file, so the record exists, without sharing the full work prematurely.
+
+- Reputation dashboard ratings, history, and client verification logs — build your on-chain work credibility over time.
+
+- ZK-Proof of Skill (Confidential Mode)Let freelancers prove they completed verified work without exposing private files or IP. Perfect for NDA clients, stealth startups, or sensitive contributions.
 
 ---
 
