@@ -2,15 +2,16 @@
 
 ## 🧵 Story-Driven Introduction
 
-Have you ever finished a project that _actually slapped_ — visuals clean, copy tight, code flawless — but still had to beg a client for a testimonial?  
-Or worse... the client vanishes like it’s the final season of a bad show.
+Efe is one of those designers people pass around in DAO Discords like alpha.
 
-I’m not talking about Upwork or Fiverr.  
-I mean real Web3 work: DMs on X, Discord tasks, side quests from DAOs.
+A rising DePIN startup found her through a mutual connection. They clicked instantly, and she got to work — brand identity, a clean landing page, and an investor deck that could close checks. She delivered everything. They paid. All good… until months later, she lost access to her Discord. because she lost her Gmail too. Just like that, the proof of the project vanished. No DMs. No file trail. Not even a screenshot of the client’s **“Thank You.”**
 
-No proof. No reviews. Just “trust me, bro.”
+Now, when she wants to show what she built, all she has is her word. 
 
-That’s the problem **SkillProof** was born to solve.
+That’s where SkillProof comes in. If she had minted a Skill NFT, the project name, files, delivery date, and the founder’s wallet signature would live on-chain. Not in Discord, not in her inbox. 
+
+But somewhere permanent — something she controls. Not for likes. **For legacy.**
+
 
 ---
 
