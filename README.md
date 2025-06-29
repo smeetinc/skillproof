@@ -82,7 +82,7 @@ SkillProof transforms anonymous portfolios and unverifiable screenshots into **o
 
 - ⚙️ Base L2 (EVM)
 - 🧱 Solidity (ERC-721)
-- 🧑‍🎨 NextJS + Tailwind
+- 🧑‍🎨 NextJS, React + Tailwind
 - 🧩 Wagmi + RainbowKit
 - 🗂 IPFS via Pinata
 
@@ -98,7 +98,7 @@ SkillProof transforms anonymous portfolios and unverifiable screenshots into **o
 
 ---
 ## Demo 
-
+- [Skillproof demo (new)](https://youtu.be/nK-DarKA_bU?si=A227WMkzz3wHYe4w)
 
 ## 🛣️ Roadmap
 
