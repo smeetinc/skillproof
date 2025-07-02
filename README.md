@@ -4,7 +4,7 @@
 
 Efe is one of those designers people pass around in DAO Discords like alpha.
 
-A rising DePIN startup found her through a mutual connection. They clicked instantly, and she got to work — brand identity, a clean landing page, and an investor deck that could close checks. She delivered everything. They paid. All good… until months later, she lost access to her Discord. because she lost her Gmail too. Just like that, the proof of the project vanished. No DMs. No file trail. Not even a screenshot of the client’s **“Thank You.”**
+A rising DePIN startup found her through a mutual connection. They clicked instantly, and she got to work — brand identity, a clean landing page, and an investor deck that could close checks. She delivered everything. They paid. All good… until months later, she lost access to her Discord. because she lost her Gmail too. Just like that, the proof of the project vanished. No DMs. No file trail. Not even a screenshot of the client’s **“Thank You.”**, so sad.
 
 Now, when she wants to show what she built, all she has is her word. 
 
