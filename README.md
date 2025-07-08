@@ -73,10 +73,10 @@ SkillProof transforms anonymous portfolios and unverifiable screenshots into **o
 
 ## 🔗 Track Relevance
 
-- 🆔 Modular Identity (Track 2.3) — Turns freelance experience into verifiable, client-signed records stored on-chain.
+1 🆔 Modular Identity (Track 2.3) — Turns freelance experience into verifiable, client-signed records stored on-chain.
 - 📇 Reputation NFTs — Each task becomes a proof-backed credential, building trust across Web2/Web3.
 
-- ⚖️ Technological Fairness (Track 1.1) — Gives freelancers ownership of their work history without relying on platforms or resumes.
+2 ⚖️ Technological Fairness (Track 1.1) — Gives freelancers ownership of their work history without relying on platforms or resumes.
 - 🎯 Proof of Work, Not Hype — Promotes transparency, trust, and meritocracy in hiring across the decentralized economy.
   
 ---
